@@ -14,4 +14,6 @@
 
 const average = () => {};
 
+// Hello Trybe!
+
 module.exports = average;
