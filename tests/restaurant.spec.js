@@ -76,7 +76,7 @@ expect(createMenu()).toBe(createMenu.fetchMenu());
     // objetoRetornado.consumption // Retorno: []
     // ```
     // Agora faça o PASSO 2 no arquivo `src/restaurant.js`.
-
+expect(createMenu(objetoQualquer).consumption).toBe('');
     
     // --------------------------------------------------------------------------------------
     // TESTE 5: Verifique se, ao chamar uma função associada à chave `order` no objeto retornado,
@@ -88,6 +88,8 @@ expect(createMenu()).toBe(createMenu.fetchMenu());
     // objetoRetornado.consumption // Retorno: ["coxinha"]
     // ```
     // Agora faça o PASSO 3 no arquivo `src/restaurant.js`.
+expect(createMenu(objetoQualquer).order ('coxinha')).toBe();
+
     // --------------------------------------------------------------------------------------
     // TESTE 6: Verifique se, ao adicionar três pedidos, dentre bebidas e comidas, o array `objetoRetornado.consumption` contém os itens pedidos.
     // ```
