@@ -134,12 +134,11 @@ describe("10 - Implemente os casos de teste e a função `createMenu`", () => {
       (() => {
         const menu = createMenu();
         menu.order("coxinha");
-        menu.order("empada");
-        menu.order("empada");
-        menu.order("coca-cola");
+        menu.order("agua");
+        menu.order("coxinha");
         return menu.consumption;
       })()
-    ).toEqual(["coxinha", "empada", "empada", "coca-cola"]);
+    ).toEqual(["coxinha", "agua", "coxinha"]);
     // --------------------------------------------------------------------------------------
     // TESTE 8: Verifique se, ao chamar `objetoRetornado.pay()`, retorna-se a soma dos preços de tudo que foi pedido, conforme registrado em `objetoRetornado.consumption`
     // ```
