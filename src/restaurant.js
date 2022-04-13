@@ -57,18 +57,18 @@
 
 //------------------------------------------------------------------------------------------
 
-// PASSO 3: Crie uma função, separada da função `createMenu()`, que, dada uma string recebida por parâmetro, 
+// PASSO 3: Crie uma função, separada da função `createMenu()`, que, dada uma string recebida por parâmetro,
 // adiciona essa string ao array de `objetoRetornado.consumption`. Adicione essa função à chave `order`.
-// DICA: para criar isso, você pode: 
+// DICA: para criar isso, você pode:
 // - Definir a função `createMenu()`
-// - Definir o objeto que a `createMenu()` retorna, mas separadamente 
+// - Definir o objeto que a `createMenu()` retorna, mas separadamente
 // - E, depois, definir a função que será atribuída a `order`.
 // ```
 // const restaurant = {}
 //
 // const createMenu = (myMenu) => // Lógica que edita o objeto `restaurant`
 //
-// const orderFromMenu = (request) => // Lógica que adiciona à chave `consumption` de `restaurant` a string recebida no parâmetro `request`. 
+// const orderFromMenu = (request) => // Lógica que adiciona à chave `consumption` de `restaurant` a string recebida no parâmetro `request`.
 // // Essa função deve ser associada à chave `order` de `restaurant`
 // ```
 // Agora faça o TESTE 6 no arquivo `tests/restaurant.spec.js`.
@@ -79,11 +79,53 @@
 // que percorre por todos os itens de `objetoRetornado.consumption`, soma o preço deles e retorna o valor somado acrescido de 10%.
 // DICA: para isso, você precisará percorrer tanto o objeto da chave `food` quanto o objeto da chave `drink`.
 
-const createMenu = ({ food: {}, drink: {} }) => {
-  fetchMenu: () => { food: {}, drink: {},consumption: [], order: orderFromMenu};
-};
-// createMenu().consumption = [];
+const orderFromMenu = (consumption, request) => consumption.push(request);
 
-const orderFromMenu = (request) => createMenu().consumption.push(request);
+const addBeverage = (item, beverages, price) => {
+  let total = 0;
+  for (let i = 0; i < beverages.length; i += 1) {
+    if (item === beverages[i]) {
+      total += price[i];
+      break;
+    }
+  }
+  return total;
+};
+
+const addDish = (item, dishes, price) => {
+  let total = 0;
+  for (let i = 0; i < dishes.length; i += 1) {
+    if (item === dishes[i]) {
+      total += price[i];
+      break;
+    }
+  }
+  return total;
+};
+
+const bill = (consumption, menu) => {
+  let total = 0;
+  const beverages = Object.keys(menu.fetchMenu().drink);
+  const beveragePrice = Object.values(menu.fetchMenu().drink);
+  const dishes = Object.keys(menu.fetchMenu().food);
+  const dishPrice = Object.values(menu.fetchMenu().food);
+
+  for (let i = 0; i < consumption.length; i += 1) {
+    total += addBeverage(consumption[i], beverages, beveragePrice);
+    total += addDish(consumption[i], dishes, dishPrice);    
+  }
+  total = (total * 1.1).toFixed(2);
+  return Number(total);
+};
+
+const createMenu = (object) => {
+  const menu = {
+    fetchMenu: () => object,
+    consumption: [],
+    order: (request) => orderFromMenu(menu.consumption, request),
+    pay: () => bill(menu.consumption, menu),
+  };
+  return menu;
+};
 
 module.exports = createMenu;
