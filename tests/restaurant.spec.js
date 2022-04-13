@@ -59,7 +59,9 @@ expect(typeof objetoRetornado.fetchMenu).toBe('function');
     // const objetoRetornado = createMenu({ food: {}, drink: {} });
     // objetoRetornado.fetchMenu() // Retorno: { food: {}, drink: {}}
     // ```
-expect(Object.keys(objetoRetornado.fetchMenu())).toBe([food, drink]);
+    expect(
+      Object.keys(createMenu({ food: {}, drink: {} }).fetchMenu())
+    ).toBe(['food', 'drink']);
 
     // TESTE 3: Verifique se o menu passado pra função createMenu é identico ao menu recuperado pela função 'objetoRetornado.fetchMenu'
     // ```
@@ -67,8 +69,10 @@ expect(Object.keys(objetoRetornado.fetchMenu())).toBe([food, drink]);
     // objetoRetornado.fetchMenu() // Retorno: objetoQualquer
     // ```
     // Agora faça o PASSO 1 no arquivo `src/restaurant.js`.
-expect(createMenu()).toBe(createMenu.fetchMenu());
-
+    expect(createMenu({ food: {}, drink: {} }).fetchMenu()).toBe({
+      food: {},
+      drink: {},
+    });
     // --------------------------------------------------------------------------------------
     // TESTE 4: Verifique se 'objetoRetornado.consumption', após a criação do menu, retorna um array vazio.
     // ```
@@ -76,7 +80,7 @@ expect(createMenu()).toBe(createMenu.fetchMenu());
     // objetoRetornado.consumption // Retorno: []
     // ```
     // Agora faça o PASSO 2 no arquivo `src/restaurant.js`.
-expect(createMenu(objetoQualquer).consumption).toBe('');
+    expect(createMenu().consumption).toBe([]);
     
     // --------------------------------------------------------------------------------------
     // TESTE 5: Verifique se, ao chamar uma função associada à chave `order` no objeto retornado,
@@ -88,7 +92,13 @@ expect(createMenu(objetoQualquer).consumption).toBe('');
     // objetoRetornado.consumption // Retorno: ["coxinha"]
     // ```
     // Agora faça o PASSO 3 no arquivo `src/restaurant.js`.
-expect(createMenu(objetoQualquer).order ('coxinha')).toBe(createMenu(objetoQualquer).consumption ('coxinha'));
+    expect(
+      (() => {
+        const menu = createMenu();
+        menu.order('coxinha');
+        return menu.consumption;
+      })()
+    ).toBe(['coxinha']);
 
     // --------------------------------------------------------------------------------------
     // TESTE 6: Verifique se, ao adicionar três pedidos, dentre bebidas e comidas, o array `objetoRetornado.consumption` contém os itens pedidos.
@@ -100,10 +110,16 @@ expect(createMenu(objetoQualquer).order ('coxinha')).toBe(createMenu(objetoQualq
     // objetoRetornado.consumption // Retorno: ["coxinha", "agua", "sopa", "sashimi"]
     // ```
     // Agora faça o TESTE 7 deste arquivo.
-    expect(objetoRetornado.order("coxinha");
-    objetoRetornado.order("agua");
-    objetoRetornado.order("sopa");
-    objetoRetornado.order("sashimi");).toBe(["coxinha", "agua", "sopa", "sashimi"]);
+    expect(
+      (() => {
+        const menu = createMenu();
+        menu.order('coxinha');
+        menu.order('agua');
+        menu.order('sopa');
+        menu.order('sashimi');
+        return menu.consumption;
+      })()
+    ).toBe(['coxinha', 'agua', 'sopa', 'sashimi']);
     // --------------------------------------------------------------------------------------
     // TESTE 7: Verifique se a função `order` aceita que pedidos repetidos sejam acrescidos a consumption.
     // ```
@@ -113,6 +129,16 @@ expect(createMenu(objetoQualquer).order ('coxinha')).toBe(createMenu(objetoQualq
     // objetoRetornado.consumption // Retorno: ['coxinha', 'agua', 'coxinha']
     // ```
     // Agora faça o TESTE 8 deste arquivo.
+    expect(
+      (() => {
+        const menu = createMenu();
+        menu.order('coxinha');
+        menu.order('empada');
+        menu.order('empada');
+        menu.order('coca-cola');
+        return menu.consumption;
+      })()
+    ).toEqual(['coxinha', 'empada', 'empada', 'coca-cola']);
     // --------------------------------------------------------------------------------------
     // TESTE 8: Verifique se, ao chamar `objetoRetornado.pay()`, retorna-se a soma dos preços de tudo que foi pedido, conforme registrado em `objetoRetornado.consumption`
     // ```
@@ -122,5 +148,30 @@ expect(createMenu(objetoQualquer).order ('coxinha')).toBe(createMenu(objetoQualq
     // objetoRetornado.pay() // Retorno: somaDosPreçosDosPedidos
     // ```
     // Agora faça o PASSO 4 no arquivo `src/restaurant.js`.
+    expect(
+      (() => {
+        const menuPronto = {
+          food: {
+            coxinha: 3,
+            empada: 3,
+            pastelDeCarne: 4,
+            pastelDeQueijo: 4,
+          },
+          drink: {
+            agua: 2,
+            guarana: 2,
+            suco: 4,
+            coca: 2,
+          },
+        };
+
+        const retornoMenu = createMenu(menuPronto);
+
+        retornoMenu.order('coxinha');
+        retornoMenu.order('agua');
+        retornoMenu.order('empada');
+        return retornoMenu.pay();
+      })()
+    ).toBeCloseTo(8.8);
   });
 });
