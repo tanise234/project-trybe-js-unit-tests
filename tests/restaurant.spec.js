@@ -59,7 +59,7 @@ describe("10 - Implemente os casos de teste e a função `createMenu`", () => {
     // const objetoRetornado = createMenu({ food: {}, drink: {} });
     // objetoRetornado.fetchMenu() // Retorno: { food: {}, drink: {}}
     // ```
-    expect(Object.keys(createMenu({ food: {}, drink: {} }).fetchMenu())).toBe([
+    expect(Object.keys(createMenu({ food: {}, drink: {} }).fetchMenu())).toEqual([
       "food",
       "drink",
     ]);
@@ -70,7 +70,7 @@ describe("10 - Implemente os casos de teste e a função `createMenu`", () => {
     // objetoRetornado.fetchMenu() // Retorno: objetoQualquer
     // ```
     // Agora faça o PASSO 1 no arquivo `src/restaurant.js`.
-    expect(createMenu({ food: {}, drink: {} }).fetchMenu()).toBe({
+    expect(createMenu({ food: {}, drink: {} }).fetchMenu()).toEqual({
       food: {},
       drink: {},
     });
@@ -81,7 +81,7 @@ describe("10 - Implemente os casos de teste e a função `createMenu`", () => {
     // objetoRetornado.consumption // Retorno: []
     // ```
     // Agora faça o PASSO 2 no arquivo `src/restaurant.js`.
-    expect(createMenu().consumption).toBe([]);
+    expect(createMenu().consumption).toEqual([]);
 
     // --------------------------------------------------------------------------------------
     // TESTE 5: Verifique se, ao chamar uma função associada à chave `order` no objeto retornado,
@@ -99,7 +99,7 @@ describe("10 - Implemente os casos de teste e a função `createMenu`", () => {
         menu.order("coxinha");
         return menu.consumption;
       })()
-    ).toBe(["coxinha"]);
+    ).toEqual(["coxinha"]);
 
     // --------------------------------------------------------------------------------------
     // TESTE 6: Verifique se, ao adicionar três pedidos, dentre bebidas e comidas, o array `objetoRetornado.consumption` contém os itens pedidos.
@@ -120,7 +120,7 @@ describe("10 - Implemente os casos de teste e a função `createMenu`", () => {
         menu.order("sashimi");
         return menu.consumption;
       })()
-    ).toBe(["coxinha", "agua", "sopa", "sashimi"]);
+    ).toEqual(["coxinha", "agua", "sopa", "sashimi"]);
     // --------------------------------------------------------------------------------------
     // TESTE 7: Verifique se a função `order` aceita que pedidos repetidos sejam acrescidos a consumption.
     // ```
@@ -159,10 +159,10 @@ describe("10 - Implemente os casos de teste e a função `createMenu`", () => {
             pastelDeQueijo: 4,
           },
           drink: {
+            cerveja: 2,
             agua: 2,
-            guarana: 2,
             suco: 4,
-            coca: 2,
+            refrigenate: 2,
           },
         };
 
