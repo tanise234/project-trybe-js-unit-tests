@@ -49,9 +49,9 @@ describe('10 - Implemente os casos de teste e a função `createMenu`', () => {
     // TESTE 1: Verifique se o retorno da função createMenu() é um objeto que possui a
     // chave fetchMenu, a qual tem como valor uma função.
     // ```
-    // const objetoRetornado = createMenu(); // Retorno: { fetchMenu: () => {}, ... }
+    const objetoRetornado = createMenu(); // Retorno: { fetchMenu: () => {}, ... }
     // ```
-expect(typeof createMenu().fetchMenu).toBe('function');
+expect(typeof objetoRetornado.fetchMenu).toBe('function');
 
     // TESTE 2: Verifique se 'objetoRetornado.fetchMenu()' retorna um objeto cujas chaves são somente `food` e `drink`, 
     // considerando que a função createMenu() foi chamada com o objeto: `{ food: {}, drink: {} }`.
@@ -59,7 +59,7 @@ expect(typeof createMenu().fetchMenu).toBe('function');
     // const objetoRetornado = createMenu({ food: {}, drink: {} });
     // objetoRetornado.fetchMenu() // Retorno: { food: {}, drink: {}}
     // ```
-expect(Object.keys(createMenu().fetchMenu())).toBe([food, drink]);
+expect(Object.keys(objetoRetornado.fetchMenu())).toBe([food, drink]);
 
     // TESTE 3: Verifique se o menu passado pra função createMenu é identico ao menu recuperado pela função 'objetoRetornado.fetchMenu'
     // ```
@@ -88,7 +88,7 @@ expect(createMenu(objetoQualquer).consumption).toBe('');
     // objetoRetornado.consumption // Retorno: ["coxinha"]
     // ```
     // Agora faça o PASSO 3 no arquivo `src/restaurant.js`.
-expect(createMenu(objetoQualquer).order ('coxinha')).toBe();
+expect(createMenu(objetoQualquer).order ('coxinha')).toBe(createMenu(objetoQualquer).consumption ('coxinha'));
 
     // --------------------------------------------------------------------------------------
     // TESTE 6: Verifique se, ao adicionar três pedidos, dentre bebidas e comidas, o array `objetoRetornado.consumption` contém os itens pedidos.
@@ -100,6 +100,10 @@ expect(createMenu(objetoQualquer).order ('coxinha')).toBe();
     // objetoRetornado.consumption // Retorno: ["coxinha", "agua", "sopa", "sashimi"]
     // ```
     // Agora faça o TESTE 7 deste arquivo.
+    expect(objetoRetornado.order("coxinha");
+    objetoRetornado.order("agua");
+    objetoRetornado.order("sopa");
+    objetoRetornado.order("sashimi");).toBe(["coxinha", "agua", "sopa", "sashimi"]);
     // --------------------------------------------------------------------------------------
     // TESTE 7: Verifique se a função `order` aceita que pedidos repetidos sejam acrescidos a consumption.
     // ```
