@@ -112,7 +112,7 @@ const bill = (consumption, menu) => {
 
   for (let i = 0; i < consumption.length; i += 1) {
     total += addBeverage(consumption[i], beverages, beveragePrice);
-    total += addDish(consumption[i], dishes, dishPrice);    
+    total += addDish(consumption[i], dishes, dishPrice);
   }
   total = (total * 1.1).toFixed(2);
   return Number(total);
